@@ -48,7 +48,7 @@ fun NavGraph(navController: NavHostController) {
         }
 
         composable(Routes.ManageBanner.route) {
-            ManageBanner()
+            ManageBanner(navController)
         }
 
         composable(Routes.ManageFaculty.route) {

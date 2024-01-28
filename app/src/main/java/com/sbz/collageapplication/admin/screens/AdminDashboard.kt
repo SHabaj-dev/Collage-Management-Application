@@ -19,8 +19,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +42,7 @@ import com.sbz.collageapplication.ui.theme.BODY_SIZE
 import com.sbz.collageapplication.ui.theme.Honeydew
 import com.sbz.collageapplication.ui.theme.OuterSpace
 import com.sbz.collageapplication.ui.theme.PaleDogwood
-import com.sbz.collageapplication.ui.theme.TITLE_SIZE
+import com.sbz.collageapplication.widget.TopAppBarWidget
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,18 +71,9 @@ fun AdminDashboard(navController: NavHostController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Admin Dashboard",
-                        style = TextStyle(
-                            color = OuterSpace,
-                            fontSize = TITLE_SIZE,
-                            fontWeight = FontWeight.Bold
-                        )
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Aquamarine)
+            TopAppBarWidget(
+                title = "Admin Dashboard",
+                backgroundColor = Aquamarine,
             )
         }
     ) { paddingValues ->
