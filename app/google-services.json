@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "183234397358",
+    "project_id": "collage-management-application",
+    "storage_bucket": "collage-management-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183234397358:android:37772376f6e2c4697e593f",
+        "android_client_info": {
+          "package_name": "com.sbz.collageapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSCP-4Z3bD4dvTStFrU9nRbvC1UyAcswk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

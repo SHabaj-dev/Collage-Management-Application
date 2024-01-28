@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.sbz.collageapplication" />
+                  <option name="mobileSdkAppId" value="1:183234397358:android:37772376f6e2c4697e593f" />
+                  <option name="projectId" value="collage-management-application" />
+                  <option name="projectNumber" value="183234397358" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
