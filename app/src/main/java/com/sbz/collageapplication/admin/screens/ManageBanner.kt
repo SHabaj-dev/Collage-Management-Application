@@ -1,6 +1,7 @@
 package com.sbz.collageapplication.admin.screens
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -25,7 +28,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,12 +46,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
+import com.sbz.collageapplication.itemview.ManageBannerItemView
 import com.sbz.collageapplication.ui.theme.Almond
 import com.sbz.collageapplication.ui.theme.BODY_SIZE
 import com.sbz.collageapplication.ui.theme.LightBlue
 import com.sbz.collageapplication.ui.theme.OuterSpace
 import com.sbz.collageapplication.ui.theme.PaleDogwood
 import com.sbz.collageapplication.ui.theme.Red
+import com.sbz.collageapplication.viewmodel.BannerViewModel
 import com.sbz.collageapplication.widget.TopAppBarWidget
 
 @Composable
@@ -55,6 +62,14 @@ fun ManageBanner(
 ) {
 
     val context = LocalContext.current
+
+    val bannerViewModel: BannerViewModel = BannerViewModel()
+    val isUploaded by bannerViewModel.isPosted.observeAsState(false)
+    val isDeleted by bannerViewModel.isDeleted.observeAsState(false)
+    val bannerList by bannerViewModel.bannerList.observeAsState(null)
+
+    bannerViewModel.getBanner()
+
     var imageUri by remember {
         mutableStateOf<Uri?>(null)
     }
@@ -63,6 +78,19 @@ fun ManageBanner(
         contract = ActivityResultContracts.GetContent()
     ) {
         imageUri = it
+    }
+
+    LaunchedEffect(isUploaded) {
+        if (isUploaded) {
+            Toast.makeText(context, "Image Uploaded Successfully", Toast.LENGTH_SHORT).show()
+            imageUri = null
+        }
+    }
+
+    LaunchedEffect(isDeleted) {
+        if (isDeleted) {
+            Toast.makeText(context, "Image Deletion Successfully", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -119,7 +147,11 @@ fun ManageBanner(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Button(
-                                onClick = {},
+                                onClick = {
+
+                                    bannerViewModel.saveImage(imageUri!!)
+
+                                },
                                 modifier = Modifier
                                     .weight(1f)
                                     .padding(
@@ -169,6 +201,16 @@ fun ManageBanner(
                             }
                         }
                     }
+                }
+            }
+
+            LazyColumn {
+                items(bannerList ?: emptyList()) {
+                    ManageBannerItemView(
+                        bannerModel = it,
+                        delete = { docId ->
+                            bannerViewModel.deleteBanner(docId)
+                        })
                 }
             }
         }

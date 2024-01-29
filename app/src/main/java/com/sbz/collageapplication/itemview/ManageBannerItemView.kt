@@ -1,6 +1,6 @@
-package com.sbz.collageapplication.widget
+package com.sbz.collageapplication.itemview
 
-import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,16 +21,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.sbz.collageapplication.model.BannerModel
 import com.sbz.collageapplication.ui.theme.BODY_SIZE
-import com.sbz.collageapplication.ui.theme.LightBlue
 import com.sbz.collageapplication.ui.theme.Red
 
 @Composable
-fun ManageBannerListItem(
-    imageUri: Uri?
+fun ManageBannerItemView(
+    bannerModel: BannerModel,
+    delete: (docId: String) -> Unit
 ) {
 
     Card(
@@ -43,7 +43,7 @@ fun ManageBannerListItem(
             modifier = Modifier.wrapContentSize()
         ) {
             Image(
-                painter = rememberAsyncImagePainter(model = imageUri),
+                painter = rememberAsyncImagePainter(model = bannerModel.url),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -61,26 +61,9 @@ fun ManageBannerListItem(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    onClick = {},
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = 5.dp, top = 10.dp, bottom = 10.dp, start = 10.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        LightBlue
-                    )
-                ) {
-                    Text(
-                        text = "Update",
-                        style = TextStyle(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = BODY_SIZE,
-                            color = Color.Black
-                        )
-                    )
-                }
-
-                Button(
-                    onClick = {},
+                    onClick = {
+                        delete(bannerModel.docId!!)
+                    },
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 10.dp, top = 10.dp, bottom = 10.dp, start = 5.dp),
@@ -100,11 +83,4 @@ fun ManageBannerListItem(
             }
         }
     }
-}
-
-
-@Preview
-@Composable
-fun MyPreview() {
-    ManageBannerListItem(imageUri = null)
 }
